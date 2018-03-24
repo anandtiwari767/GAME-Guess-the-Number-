@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Number guessing game</title>
+
+    <style>
+      html {
+        font-family: sans-serif;
+      }
+      body {
+        width: 50%;
+        max-width: 800px;
+        min-width: 480px;
+        margin: 0 auto;
+      }
+      .lastResult {
+        color: white;
+        padding: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Number guessing game</h1>
+
+    <p>We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low.</p>
+
+    <div class="form">
+      <form onsubmit="return false;">
+      <label for="guessField">Enter a guess: </label><input type="number" id="guessField" class="guessField" required />
+      <input type="submit" value="Submit guess" id="guessSubmit">
+    <button id="rstGam">Restart Game</button>
+    </form>
+    </div>  
+
+    <div class="resultParas">
+      <p id="rt"></p>
+      <p class="guesses"></p>
+      <p class="lastResult"></p>
+      <p class="lowOrHi"></p>
+    </div>
+
+    <script>
+     var rn=Math.floor(Math.random() * 6) + 1 ; 
+     document.getElementsByClassName("guesses")[0].innerHTML+="<p>Previous Guesses : </p";
+      var c=0;
+      //document.getElementById("rt").innerHTML+=" " + rn;
+     document.getElementById("guessSubmit").onclick=function()
+     {
+       
+      var inp=document.getElementById("guessField").value;
+      if(inp !=null)
+      {
+        c++;
+        document.getElementsByClassName("guesses")[0].innerHTML+= " " + inp;
+
+      if(inp==rn)
+      {
+        document.getElementsByClassName("lastResult")[0].innerHTML="you got it right";
+        document.getElementsByClassName("lastResult")[0].style.backgroundColor="green";
+        document.getElementById("guessSubmit").disabled="true";
+        document.getElementsByClassName("lowOrHi")[0].innerHTML="";
+      }
+      else
+      {
+        
+        document.getElementsByClassName("lastResult")[0].innerHTML = "<strong> Wrong </strong>";
+        document.getElementsByClassName("lastResult")[0].style.backgroundColor="red";
+        
+       if(inp+10<rn)
+        document.getElementsByClassName("lowOrHi")[0].innerHTML="guess is too low";
+        else if(inp>rn+10)  
+         document.getElementsByClassName("lowOrHi")[0].innerHTML="guess is too high";
+      }}
+      if(c>11)
+      {
+        document.getElementsByClassName("lastResult")[0].innerHTML="Game is over restart the game";
+        document.getElementById("guessSubmit").disabled="true"; 
+        document.getElementsByClassName("lowOrHi")[0].innerHTML="";
+      }
+      
+
+    }
+    document.getElementById("rstGam").onclick=function(){
+      window.location.href="guess.html";
+    }
+     
+    
+    </script>
+  </body>
+</html>
